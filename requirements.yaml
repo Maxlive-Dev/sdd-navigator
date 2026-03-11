@@ -1,0 +1,3 @@
+- id: SCD-AI-001
+  title: Project follows SDD Four Pillars
+  description: AGENTS.md MUST comply with https://blog.rezvov.com/specification-driven-development-four-pillars.md and enforce EVERY AI decision.
