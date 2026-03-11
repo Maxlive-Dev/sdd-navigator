@@ -95,14 +95,10 @@
   description: On mobile devices, the requirements table MUST switch to a card layout; desktop MUST retain a tabular layout.
 
 - id: SCD-TECH-001
-  title: Next.js 14+ with App Router
-  description: The app MUST be built using Next.js 14 or later and MUST use the App Router for routing and data fetching.
+  title: Next.js 16+ with App Router and TypeScript strict mode
+  description: The app MUST be built using Next.js 16 or later and MUST use the App Router for routing and data fetching. The project MUST have `strict: true` in `tsconfig.json`.
 
 - id: SCD-TECH-002
-  title: TypeScript strict mode
-  description: The project MUST have `strict: true` in `tsconfig.json` and MUST not use `any` types except where explicitly required by third-party libraries.
-
-- id: SCD-TECH-003
   title: Server and Client Components separation
   description: Data loading MUST be implemented with Server Components; interactive features MUST use Client Components.
 

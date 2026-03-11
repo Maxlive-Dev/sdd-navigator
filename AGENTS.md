@@ -52,7 +52,7 @@ Purpose: enforce Specification-Driven Development (SDD) via concise, machine-act
 4. Script enforces auto-fixes for clear cases or opens tickets for required human action; all outputs reference requirement IDs and rule IDs.
 
 ## Outputs, metadata, and commit conventions
-- Commit message format: "<type>(<scope>): <short description> [<REQ-ID>]" (example: feat(auth): implement login [FR-AUTH-001]).
+- Commit message format: "<type>(<SCOPE>): <short description> [<REQ-ID>]" (example: feat(AUTH): implement login [FR-AUTH-001]).
 - Generated files must include a header: source spec reference, requirement IDs, generation timestamp.
 - Audit logs must include: rule ID, decision, agent version, inputs (compressed), and links to artifacts.
 
@@ -135,9 +135,9 @@ When acting as an AI agent, apply these rules as follows:
 ```
 // @req: FR-AUTH-001
 ```
-- Commit message:
+- Commit message format (<type>(<SCOPE>): <short description> [<REQ-ID>]):
 ```
-feat(auth): implement login [FR-AUTH-001]
+feat(AUTH): implement login [FR-AUTH-001]
 ```
 - Generated artifact header (compressed JSON):
 ```
