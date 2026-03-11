@@ -1,3 +1,135 @@
 - id: SCD-AI-001
   title: Project follows SDD Four Pillars
   description: AGENTS.md MUST comply with https://blog.rezvov.com/specification-driven-development-four-pillars.md and enforce EVERY AI decision.
+
+- id: SCD-REQ-001
+  title: Requirements spec file exists
+  description: The project MUST include a requirements.yaml that enumerates every requirement for the SDD dashboard; this file becomes the single source of truth.
+
+- id: SCD-REQ-002
+  title: Requirement ID format
+  description: Requirement IDs MUST use following template "SCD-<type>-<number>".
+
+- id: SCD-REQ-003
+  title: Requirement description field
+  description: Each requirement MUST include a description field — a MUST/SHOULD directive that can be verified.
+
+- id: SCD-API-001
+  title: Typed API client matching OpenAPI schema
+  description: TypeScript client module (`lib/api.ts`) MUST match SDD Navigator API spec (`sdd-coverage-api.yaml`) with strict typing (no `any`). Use openapi-ts/openapi-typescript 
+
+- id: SCD-API-002
+  title: API functions for each endpoint 
+  description: The data layer MUST provide functions for each endpoint: getStats, listRequirements, getRequirement, listAnnotations, listTasks, triggerScan, getScanStatus - with all necessary parameters from the sdd-coverage-api.yaml.
+
+- id: SCD-API-003
+  title: Mock data provider
+  description: Mock data provider MUST load from local JSON files (`data/*.json`) matching API response shapes.
+
+- id: SCD-API-004
+  title: Environment switchable data source
+  description: The app MUST support switching between API mode (live backend) and mock mode (local JSON) via environment variable or config.
+
+- id: SCD-API-005
+  title: Error handling
+  description: The data layer MUST handle network failures, 404s, and malformed responses with typed errors; no thrown exceptions for expected failures.
+
+- id: SCD-API-006
+  title: Mock data sample
+  description: Mock data MUST include 8 requirements (FR-SCAN-001 through FR-API-003, AR-PERF-001, AR-SEC-001) with types FR/AR and statuses covered/partial/missing, 16 annotations (14 linked + 2 orphans), and 6 tasks (5 linked + 1 orphan), with stats coverage 62.5%. 16 total annotations (10 impl, 6 test, 2 orphans), 6 tasks (2 done, 1 in_progress, 3 open, 1 orphan).
+
+- id: SCD-UI-001
+  title: Summary panel displays project stats
+  description: Dashboard MUST display total requirements count, breakdown by type (FR/AR) and coverage status (covered/partial/missing), overall coverage percentage, annotation/task orphan counts, and lastScanAt timestamp.
+
+- id: SCD-UI-002
+  title: Requirements table with columns
+  description: The requirements table MUST include columns: ID, type, title, status, updatedAt.
+
+- id: SCD-UI-003
+  title: Sortable table
+  description: The requirements table MUST be sortable by ID and updatedAt with ascending/descending toggle.
+
+- id: SCD-UI-004
+  title: Filterable by type and status
+  description: The requirements table MUST be filterable by type (FR/AR) and coverage status (covered/partial/missing) using multi-select chips.
+
+- id: SCD-UI-005
+  title: URL-synced filters
+  description: Filter state MUST be reflected in query parameters (?type=FR&status=missing) so filtered views are shareable.
+
+- id: SCD-UI-006
+  title: Empty state for filters
+  description: When filters produce no results, the table MUST show an appropriate empty state.
+
+- id: SCD-UI-007
+  title: Requirement detail view
+  description: Clicking a requirement (expand row or navigate) MUST show a detail view with all fields (id, type, title, description, status, createdAt, updatedAt), linked annotations (file path, line number, type (impl / test), code snippet), linked tasks (id, title, status, assignee if present, updatedAt), coverage assessment label (“Fully covered”, “Needs tests”, “Not implemented”), and a link back to the table with the current filter preserved.
+
+- id: SCD-UI-008
+  title: Tasks panel
+  description: A separate panel MUST list all tasks from GET /tasks with columns: ID, requirement ID, title, status, assignee, and MUST be filterable by task status (open/in_progress/done). Orphan tasks MUST be highlighted.
+
+- id: SCD-UI-009
+  title: Orphan panel
+  description: A collapsible panel MUST display annotation orphans (file, line, unknown reqId, type) and task orphans (task id, title, unknown requirementId).
+
+- id: SCD-UI-010
+  title: Theme toggle
+  description: The app MUST support dark/light theme toggle, persisted in localStorage, and respect prefers-color-scheme on first visit.
+
+- id: SCD-UI-011
+  title: Accessibility (WCAG AA)
+  description: The interface MUST use semantic HTML, be keyboard-navigable, provide `aria-sort` on sortable columns, and maintain sufficient color contrast (WCAG AA).
+
+- id: SCD-UI-012
+  title: Responsive design with Tailwind CSS
+  description: The app MUST be built with Tailwind CSS and MUST be fully responsive across desktop, tablet, and mobile viewports.
+
+- id: SCD-UI-013
+  title: Loading and error states in UI
+  description: The UI MUST display appropriate loading indicators (skeletons/spinners) during data fetching and user-friendly error boundaries for failed operations.
+
+- id: SCD-UI-014
+  title: Mobile-specific layout
+  description: On mobile devices, the requirements table MUST switch to a card layout; desktop MUST retain a tabular layout.
+
+- id: SCD-TECH-001
+  title: Next.js 14+ with App Router
+  description: The app MUST be built using Next.js 14 or later and MUST use the App Router for routing and data fetching.
+
+- id: SCD-TECH-002
+  title: TypeScript strict mode
+  description: The project MUST have `strict: true` in `tsconfig.json` and MUST not use `any` types except where explicitly required by third-party libraries.
+
+- id: SCD-TECH-003
+  title: Server and Client Components separation
+  description: Data loading MUST be implemented with Server Components; interactive features MUST use Client Components.
+
+- id: SCD-TEST-001
+  title: Data layer tests
+  description: Comprehensive Jest tests MUST cover data layer scenarios: valid data, malformed YAML/JSON, empty files, orphan detection, coverage edge cases (0%, 100%, partial).
+
+- id: SCD-TEST-002
+  title: Component tests
+  description: Component tests MUST verify summary panel counts, table rendering, filtering, sorting, detail view, tasks panel rendering and filtering.
+
+- id: SCD-TEST-003
+  title: Test requirement annotations
+  description: Every test MUST include a `// @req SCD-XXX-NNN` comment referencing the requirement it verifies.
+
+- id: SCD-DEPLOY-001
+  title: Deterministic checks
+  description: Before submission, the developer MUST run deterministic checks: `tsc --noEmit`, ESLint, all tests, `next build`.
+
+- id: SCD-DEPLOY-002
+  title: Self-validation script
+  description: A self-validation script (`scripts/check-coverage.ts`) MUST parse the project's own `requirements.yaml` and scan source for `@req` annotations, printing a coverage report and exiting with code 1 if any requirement is unimplemented.
+
+- id: SCD-DEPLOY-003
+  title: Deployment
+  description: The app MUST be deployed to Vercel, Netlify, or similar platform.
+
+- id: SCD-DEPLOY-004
+  title: Live URL in README
+  description: The live deployment URL MUST be provided in `README.md`.
