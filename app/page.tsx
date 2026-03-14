@@ -1,4 +1,6 @@
-// @req: SCD-TECH-001, SCD-UI-011, SCD-UI-012
+// @req SCD-TECH-001
+// @req SCD-UI-011
+// @req SCD-UI-012
 export default function Home() {
   return (
     <div className="space-y-8">

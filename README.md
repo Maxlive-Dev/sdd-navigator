@@ -1,33 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SDD Navigator Dashboard
 
-## Getting Started
+This is a Next.js dashboard for Specification‑Driven Development (SDD) compliance, visualizing requirement coverage, DRY violations, and deterministic enforcement.
 
-First, run the development server:
+## Deterministic Enforcement & CI/CD
+
+The project enforces the [SDD Four Pillars](https://blog.rezvov.com/specification-driven-development-four-pillars) (Traceability, DRY, Deterministic Enforcement, Parsimony) through a set of automated checks that run in CI and local git hooks.
+
+For more details on CI & git hooks look at [scripts/README.md](scripts/README.md).
+
+### Reports
+
+The pipeline generates two machine‑readable JSON reports and a human‑readable markdown report:
+
+- `reports/coverage.json` – requirement‑to‑code traceability mapping.
+- `reports/dry‑report.json` – duplicate constants, types, and code blocks.
+- `reports/sdd‑report.md` – consolidated four‑pillars evaluation with a summary table and concrete violations.
+
+The SDD report is uploaded as a workflow artifact in CI and can be reviewed in pull requests.
+
+## Scripts
+
+All utility scripts are located in `scripts/` and are also documented in detail in [scripts/README.md](scripts/README.md). The main scripts are:
+
+- `check‑coverage.ts` – validates traceability between requirements and source code annotations.
+- `check‑dry.ts` – detects DRY violations (duplicate constants, types, functions, code blocks).
+- `generate‑sdd‑report.ts` – produces the four‑pillars evaluation report.
+
+Run them via npm scripts:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run check-coverage
+npm run check:dry
+npm run report:sdd
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deployment
 
@@ -36,4 +41,3 @@ This project is deployed on Vercel and available at [https://sdd-navigator-chi.v
 Environment variables `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_USE_MOCK` are configured for production.
 
 *[Requirements.yaml](requirements.yaml) reference: [@req SCD-DEPLOY-004]*
-

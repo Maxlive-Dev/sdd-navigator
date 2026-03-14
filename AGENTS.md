@@ -105,28 +105,6 @@ When acting as an AI agent, apply these rules as follows:
    - Include the requirement ID in the commit message.
    - Keep the message imperative and concise.
    - Example: `feat(auth): implement login [FR‑AUTH‑001]`.
-   
-6. **Before finishing task:**
-   - Evaluate commits/changes against the SDD four pillars:
-
-      1. **Traceability**: Do commits reference requirement IDs? Do components and tests link
-        to requirements via @req annotations? Is there a requirements.yaml with description
-        on every entry? Are there orphan annotations or unimplemented requirements?
-
-      2. **DRY**: Are data model types defined once in the coverage module and imported
-        everywhere? Is filter logic shared, not duplicated? Are there copied type definitions
-        between server and client code?
-
-      3. **Deterministic Enforcement**: Are tsc, ESLint, and tests used to verify correctness?
-        Is there a self-validation script that checks traceability? Can any check be automated
-        further? Are there manual verification steps that could be scripted?
-
-      4. **Parsimony**: Are dependencies minimal and justified? Is there a CSS framework that
-        adds no value? Are there boilerplate abstractions or unused modules? Is the README
-        concise and factual?
-
-   - For each pillar: rate as PASS / PARTIAL / FAIL with specific file references and line numbers. 
-   - Produce a summary table and a list of concrete violations.
 
 
 ## Minimal examples (format fragments)
